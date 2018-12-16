@@ -1,32 +1,26 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>onePager</title>
-    <link rel="stylesheet" type="text/css" href="login.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
-  </head>
-  <body>
+<?php require __DIR__.'/views/header.php'; ?>
+
     <div class="login-container">
       <div class="login-wrap">
         <div class="photoify">
           <h1>Photoify</h1>
         </div>
-        <form action="index.php" method="post">
+
+        <form action="app/users/login.php" method="post">
             <div class="login-html">
               <input a href="#"id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
               <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
               <div class="login-form">
                 <div class="sign-in-htm">
                   <div class="group">
-                    <label for="user" class="label">Username</label>
-                    <input id="user" name="username" type="text" class="input">
+                    <label for="email" class="label">Email address</label>
+                    <input class="input" type="email" name="email" id="email" placeholder="your-email@email.com" required>
+                    <small class="form-text text-muted">Please provide the your email address.</small>
                   </div>
                   <div class="group">
                     <label for="pass" class="label">Password</label>
-                    <input id="pass" name="password" type="password" class="input" data-type="password">
+                    <input id="pass" name="password" type="password" class="input" required>
+                     <small class="form-text text-muted">Please provide the your password.</small>
                   </div>
                   <div class="group">
                     <input id="check" type="checkbox" class="check" checked>
@@ -42,20 +36,28 @@
                   </div>
                 </div>
         </form>
-        <form action="index.php" method="post">
+
+        <form action="app/users/sign-up.php" method="post">
             <div class="sign-up-htm">
+                <div class="group">
+                  <label for="pass" class="label">User name</label>
+                  <input id="user-r" name="user-name" type="text" class="input" required>
+                  <small class="form-text text-muted">Please provide the your username.</small>
+                </div>
               <div class="group">
                 <label for="pass" class="label">Email Address</label>
-                <input id="email-r" name="email" type="text" class="input">
+                <input class="input" type="email" name="email-r" id="email-r" placeholder="your-email@email.com" required>
+                <small class="form-text text-muted">Please provide the your email address.</small>
               </div>
               <div class="group">
                 <label for="pass" class="label">Password</label>
-                <input id="pass-r" name="password" type="password" class="input" data-type="password">
+                <input id="pass-r" name="password-r" type="password" class="input" data-type="password" required>
+                <small class="form-text text-muted">Please provide the your password.</small>
               </div>
-              <div class="group">
+              <!-- <div class="group">
                 <label for="pass" class="label">Repeat Password</label>
-                <input id="pass-r-2" name="password" type="password" class="input" data-type="password">
-              </div>
+                <input id="pass-r-2" name="password-r-2" type="password" class="input" data-type="password" required>
+              </div> -->
               <div class="group">
                 <input type="submit" name="signup-submit" class="button" value="Sign Up">
               </div>
@@ -72,6 +74,4 @@
       </div>
     </div>
 
-     <!-- <script type="text/javascript" src="script.js"></script> -->
-  </body>
-</html>
+<?php require __DIR__.'/views/footer.php'; ?>

@@ -21,7 +21,6 @@ if (isset($_POST['email'], $_POST['password'])) {
     if (!$user) {
         redirect('/login.php');
     }
-
     // If we found the user in the database, compare the given password from the
     // request with the one in the database using the password_verify function.
     if (password_verify($_POST['password'], $user['password'])) {
@@ -31,9 +30,9 @@ if (isset($_POST['email'], $_POST['password'])) {
         unset($user['password']);
 
         $_SESSION['user'] = $user;
+
     }
 }
-
 // We should put this redirect in the end of this file since we always want to
 // redirect the user back from this file. We don't know
-redirect('/');
+// redirect('/');
