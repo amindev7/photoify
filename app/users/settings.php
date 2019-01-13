@@ -4,32 +4,60 @@ declare(strict_types=1);
 
 require __DIR__.'/../autoload.php';
 
+//UPDATE EMAIL AND NAME
 
-if (isset($_POST['save'])) {
+if (isset($_POST['name'],$_POST['email'])) {
 
+     $name = trim(filter_var($_POST['name'], FILTER_SANITIZE_STRING));
+     $email = trim(filter_var($_POST['email'], FILTER_SANITIZE_EMAIL));
 
-    // $id = filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT);
-    $fullName = filter_var($_POST['full-name'], FILTER_SANITIZE_STRING);
-    $userName = filter_var($_POST['username'], FILTER_SANITIZE_STRING);
-    $email = filter_var($_POST['email'], FILTER_SANITIZE_URL);
-
-    $username = $_SESSION['username'];
+     $id = $_SESSION['user']['id'];
 
     $query = 'UPDATE users
-    SET name = :fullname,  username = :username, email = :email
-    WHERE username = :username';
+    SET name = :name, email = :email
+    WHERE id = :id';
 
-    $statement = $pdo->prepare($query);
+    $updateStatement = $pdo->prepare($query);
 
-    if (!$statement) {
+    if (!$updateStatement) {
         die(var_dump($pdo->errorInfo()));
     }
 
-    // $statement->bindParam(':id', $id, PDO::PARAM_INT);
-    $statement->bindParam(':fullname', $fullName, PDO::PARAM_STR);
-    $statement->bindParam(':username', $userName, PDO::PARAM_STR);
-    $statement->bindParam(':email', $email, PDO::PARAM_STR);
-    $statement->execute();
+    $updateStatement->bindParam(':id', $id, PDO::PARAM_INT);
+    $updateStatement->bindParam(':name', $name, PDO::PARAM_STR);
+    $updateStatement->bindParam(':email', $email, PDO::PARAM_STR);
+    $updateStatement->execute();
 
-    redirect('/views/profile.php');
+    $_SESSION['user']['name'] = $name;
+    $_SESSION['user']['email'] = $email;
+
 }
+
+//UPDATE PASSWORD
+
+if (isset($_POST['new-password'], $_POST['password-confirm'])) {
+
+  if ($_POST['new-password'] === $_POST['password-confirm']) {
+
+    $password = password_hash($_POST['new-password'], PASSWORD_DEFAULT);
+    $id = $_SESSION['user']['id'];
+
+    $query = 'UPDATE users
+    SET password = :password
+    WHERE id = :id';
+
+    $updatePasswordStatement = $pdo->prepare($query);
+
+    $updatePasswordStatement->bindParam(':id', $id, PDO::PARAM_INT);
+    $updatePasswordStatement->bindParam(':password', $password, PDO::PARAM_STR);
+    $updatePasswordStatement->execute();
+
+    if (!$updatePasswordStatement) {
+        die(var_dump($pdo->errorInfo()));
+    };
+  }else {
+    echo 'password don\'t match';
+  }
+}
+
+redirect('/views/profile.php');
