@@ -11,6 +11,7 @@ body
 :before
 {
     box-sizing: border-box;
+    margin: 0;
 }
 .clearfix:after,
 .clearfix:before
@@ -23,13 +24,28 @@ body
     clear: both;
 }
 a
-{text-decoration: none;
-
-    color: inherit;
+{
+  text-decoration: none;
+  color: inherit;
 }
+
+.nav{
+  display: flex;
+  list-style: none;
+  justify-content: space-around;
+  background-color: #111;
+  height: 50px;
+}
+/* ul li a{
+  font-size: 2vw;
+} */
+.nav-item-2{
+  margin-left: 600px;
+}
+
 .photoify{
   text-align: center;
-  padding-top: 70px;
+  padding-top: 30px;
   padding-bottom: 10px;
   font-family: 'American Typewriter', serif;
   font-size: 30px;
@@ -222,11 +238,105 @@ a
 {
     text-align: center;
 }
+.login{
+  padding-top: 5px;
+}
+
 @media(max-width:600px)
 {
     .login-html
     {
         width: 100vw;
-        height: 100vh;
     }
+
+    .photoify{
+      padding-top: 0px;
+    }
+}
+
+.profile{
+  display: flex;
+  justify-content: space-between;
+}
+
+.profile-edit-btn{
+  max-height: 40px;
+}
+
+.profile-image img{
+  border-radius: 50%;
+}
+
+.profile-edit
+{
+  display: flex;
+  justify-content: center;
+}
+
+/* Profile Section */
+
+
+/* settings */
+.container {
+  margin-top: 50px;
+}
+
+
+
+/* ------------------------------- */
+/* Media Section
+---------------------------------- */
+.media {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: start;
+  align-items: flex-start;
+}
+.d-flex {
+  display: -ms-flexbox;
+  display: flex;
+}
+.media .mr-3{
+  margin-right: 1rem;
+}
+.media img{
+  width: 48px;
+  height: 48px;
+  padding: 2px;
+  border: 2px solid #f4f4f4;
+}
+.media-body {
+  -ms-flex: 1;
+  flex: 1;
+  padding: .4rem;
+}
+.media-body p{
+  font-family: 'Rokkitt', serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: #88898a;
+}
+.media-body small span{
+  font-family: 'Rokkitt', serif;
+  font-size: 12px;
+  color: #aaa;
+  margin-right: 10px;
+}
+
+.new-post{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+  font-size: 30px;
+}
+
+.upload{
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+  width: 100%;
+  font-size: 40px;
+}
+.upload-button{
+    font-size: 25px;
 }
