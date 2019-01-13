@@ -1,13 +1,14 @@
+<?php
 
-<?php require __DIR__.'/../views/header.php'; ?>
+require __DIR__.'/../views/header.php';
 
-
-<?php if (isset($_SESSION['user'])): ?>
-
-    <h1 class="profile-user-name"><?php echo $_SESSION['user']['username']; ?></h1>
+if (isset($_SESSION['user'])):
+?>
+    <h1 class="profile-user-name"></h1>
     <div class="container">
-    <h1>Edit Profile</h1>
+    <h1>Edit Profile <?php echo $_SESSION['user']['name'];?></h1>
   	<hr>
+
     	<div class="row">
           <!-- left column -->
           <div class="col-md-3">
@@ -18,19 +19,14 @@
           </div>
           <!-- edit form column -->
           <div class="col-md-9 personal-info">
-            <h3>Personal info</h3>
-
-            <form class="form-horizontal" action="/app/users/settings.php" method="post" role="form">
+            <h3>Update Personal info</h3>
+            <!-- PROFILE UPDATE FORM -->
+            <form class="form-horizontal" action="/app/users/settings.php" method="post">
+            <!-- <input type="hidden" name="id" value=""> -->
               <div class="form-group">
                 <label class="col-lg-3 control-label">Full Name:</label>
                 <div class="col-lg-8">
-                  <input class="form-control" name="full-name" type="text" value="">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-lg-3 control-label">Username:</label>
-                <div class="col-lg-8">
-                  <input class="form-control" name="username" type="text" value="">
+                  <input class="form-control" name="name" type="text" value="">
                 </div>
               </div>
               <div class="form-group">
@@ -46,28 +42,30 @@
                 </div>
               </div>
           </form>
-            <form class="form-horizontal" action="app/users/login.php" method="post" role="form">
+
+          <!-- CHANGE PASSWORD FORM  -->
+            <form class="form-horizontal" action="/app/users/settings.php" method="post" role="form">
               <div class="form-group">
                   <h3>Change Password</h3>
-                    <label class="col-md-3 control-label">Password:</label>
+                    <label class="col-md-3 control-label">New Password:</label>
                     <div class="col-md-8">
-                      <input class="form-control" name="old-password" type="password" value="">
+                      <input class="form-control" name="new-password" type="password" value="">
                     </div>
               </div>
                   <div class="form-group">
                     <label class="col-md-3 control-label">Confirm password:</label>
                     <div class="col-md-8">
-                      <input class="form-control" name="new-password" type="password" value="">
+                      <input class="form-control" name="password-confirm" type="password" value="">
                     </div>
                   </div>
                   <div class="form-group">
                     <label class="col-md-3 control-label"></label>
                     <div class="col-md-8">
-                      <input type="button" class="btn btn-primary" value="Change Password">
+                      <input type="submit" name="change-password" class="btn btn-primary" value="Change Password">
                       <span></span>
                     </div>
                   </div>
-            </div>
+              </div>
             </form>
           </div>
       </div>
