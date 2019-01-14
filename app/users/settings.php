@@ -55,9 +55,53 @@ if (isset($_POST['new-password'], $_POST['password-confirm'])) {
     if (!$updatePasswordStatement) {
         die(var_dump($pdo->errorInfo()));
     };
-  }else {
-    echo 'password don\'t match';
-  }
+ }
 }
 
-redirect('/views/profile.php');
+// UPLOAD PROFILE IMAGE //
+
+if (isset($_POST['upload-img'])) {
+  // Get image name
+  $image = $_FILES['profile-img']['name'];
+
+  $userId = $_SESSION['user']['id'];
+
+  // image file directory
+  $path = "/../../images/".basename($image);
+
+  // if (move_uploaded_file($_FILES['profile-img']['tmp_name'], $path)) {
+
+      $query = 'SELECT * FROM images WHERE user_id = :userId';
+      $stmt = $pdo->prepare($query);
+      $stmt->bindParam(':userId', $userId, PDO::PARAM_STR);
+      $stmt->execute();
+      $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+      if (!$row['filepath']) {
+
+        $query = 'INSERT INTO images
+        (filepath, user_id) VALUES (:image, :userId)';
+
+        $stmt = $pdo->prepare($query);
+
+        $stmt->bindParam(':image', $image, PDO::PARAM_STR);
+        $stmt->bindParam(':userId', $userId, PDO::PARAM_STR);
+        $stmt->execute();
+        }else {
+        $sql = 'UPDATE images
+        SET filepath = :image, user_id = :userId';
+
+		$stmt = $pdo->prepare($sql);
+		$stmt->bindParam(':image', $image, PDO::PARAM_STR);
+		$stmt->bindParam(':userId', $userId, PDO::PARAM_STR);
+		$stmt->execute();
+    }
+    if (!$stmt) {
+    	die(var_dump($pdo->errorInfo()));
+        // redirect('/views/profile.php');
+      }
+    // }
+}
+
+
+// redirect('/views/profile.php');
