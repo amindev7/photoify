@@ -61,63 +61,35 @@ if (isset($_POST['new-password'], $_POST['password-confirm'])) {
 // UPLOAD PROFILE IMAGE //
 
 if (isset($_POST['upload-img'], $_FILES['profile-img'])) {
+{
+  $profileImage = $_FILES['profile-img'] ;
+  $id = $_SESSION['user']['id'];
 
-  $image = $_FILES['profile-img'];
-  $date = date("Y-m-d, H:i:s");
-  $userId = $_SESSION['user']['id'];
-  $imageName = $userId.'_'.$date.$image['name'];
+  if ($profileImage['type'] === 'image/jpeg' || $profileImage['type'] === 'image/png')
+  {
+    if ($profileImage['size'] < 3000000)
+    {
+      $imagePath = '/../img/profile_img/';
 
+      $imageName = time().'-'.$id.'-'.$profileImage['name'];
 
-   if (!is_dir(__DIR__."/..//img/profile_img")) {
-     mkdir(__DIR__."/..//img/profile_img");
-   };
+      move_uploaded_file($profileImage['tmp_name'], __DIR__.$imagePath.$imageName);
 
-   $path = __DIR__.'/../img/profile_img/';
-
-   if (file_exists($path.$image['name'])) {
-     die;
-   }
-
-  $query = 'SELECT * FROM images
-  WHERE user_id = :userId';
-  $stmt = $pdo->prepare($query);
-  $stmt->bindParam(':userId', $userId, PDO::PARAM_STR);
-  $stmt->execute();
-  $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-  if (!$row['filepath']) {
-    $query = 'INSERT INTO images
-    (filepath, user_id) VALUES (:image, :userId)';
-
-    $stmt = $pdo->prepare($query);
-
-    $stmt->bindParam(':image', $imageName, PDO::PARAM_STR);
-    $stmt->bindParam(':userId', $userId, PDO::PARAM_STR);
-    $stmt->execute();
-
-    }
-
-    else {
-    $query = 'UPDATE images
-    SET filepath = :image, user_id = :userId';
-
-	$stmt = $pdo->prepare($query);
-	$stmt->bindParam(':image', $imageName, PDO::PARAM_STR);
-	$stmt->bindParam(':userId', $userId, PDO::PARAM_STR);
-	$stmt->execute();
-
-    }
-    if (!$stmt) {
-    	die(var_dump($pdo->errorInfo()));
-      }
-
-      $oldPath = $image['tmp_name'];
-
-      $newPath = $path.$imageName;
-
-      move_uploaded_file($oldPath, $newPath);
+      $statement = $pdo->prepare('UPDATE users
+      SET profile_img = :profile_img
+      WHERE id = :id');
+      $statement->bindParam(':id', $id, PDO::PARAM_INT);
+      $statement->bindParam(':profile_img', $imageName, PDO::PARAM_STR);
+      $statement->execute();
+      if (!$statement) {
+      	die(var_dump($pdo->errorInfo()));
+        }
 
       $_SESSION['user']['profile-img'] = $imageName;
+    }
+    redirect('/views/profile.php');
+  }
+
 }
 
-redirect('/views/profile.php');
+}
