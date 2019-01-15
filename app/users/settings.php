@@ -60,48 +60,64 @@ if (isset($_POST['new-password'], $_POST['password-confirm'])) {
 
 // UPLOAD PROFILE IMAGE //
 
-if (isset($_POST['upload-img'])) {
-  // Get image name
-  $image = $_FILES['profile-img']['name'];
+if (isset($_POST['upload-img'], $_FILES['profile-img'])) {
 
+  $image = $_FILES['profile-img'];
+  $date = date("Y-m-d, H:i:s");
   $userId = $_SESSION['user']['id'];
+  $imageName = $userId.'_'.$date.$image['name'];
 
-  // image file directory
-  $path = "/../../images/".basename($image);
 
-  // if (move_uploaded_file($_FILES['profile-img']['tmp_name'], $path)) {
+   if (!is_dir(__DIR__."/..//img/profile_img")) {
+     mkdir(__DIR__."/..//img/profile_img");
+   };
 
-      $query = 'SELECT * FROM images WHERE user_id = :userId';
-      $stmt = $pdo->prepare($query);
-      $stmt->bindParam(':userId', $userId, PDO::PARAM_STR);
-      $stmt->execute();
-      $row = $stmt->fetch(PDO::FETCH_ASSOC);
+   $path = __DIR__.'/../img/profile_img/';
 
-      if (!$row['filepath']) {
+   if (file_exists($path.$image['name'])) {
+     die;
+   }
 
-        $query = 'INSERT INTO images
-        (filepath, user_id) VALUES (:image, :userId)';
+  $query = 'SELECT * FROM images
+  WHERE user_id = :userId';
+  $stmt = $pdo->prepare($query);
+  $stmt->bindParam(':userId', $userId, PDO::PARAM_STR);
+  $stmt->execute();
+  $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        $stmt = $pdo->prepare($query);
+  if (!$row['filepath']) {
+    $query = 'INSERT INTO images
+    (filepath, user_id) VALUES (:image, :userId)';
 
-        $stmt->bindParam(':image', $image, PDO::PARAM_STR);
-        $stmt->bindParam(':userId', $userId, PDO::PARAM_STR);
-        $stmt->execute();
-        }else {
-        $sql = 'UPDATE images
-        SET filepath = :image, user_id = :userId';
+    $stmt = $pdo->prepare($query);
 
-		$stmt = $pdo->prepare($sql);
-		$stmt->bindParam(':image', $image, PDO::PARAM_STR);
-		$stmt->bindParam(':userId', $userId, PDO::PARAM_STR);
-		$stmt->execute();
+    $stmt->bindParam(':image', $imageName, PDO::PARAM_STR);
+    $stmt->bindParam(':userId', $userId, PDO::PARAM_STR);
+    $stmt->execute();
+
+    }
+
+    else {
+    $query = 'UPDATE images
+    SET filepath = :image, user_id = :userId';
+
+	$stmt = $pdo->prepare($query);
+	$stmt->bindParam(':image', $imageName, PDO::PARAM_STR);
+	$stmt->bindParam(':userId', $userId, PDO::PARAM_STR);
+	$stmt->execute();
+
     }
     if (!$stmt) {
     	die(var_dump($pdo->errorInfo()));
-        // redirect('/views/profile.php');
       }
-    // }
+
+      $oldPath = $image['tmp_name'];
+
+      $newPath = $path.$imageName;
+
+      move_uploaded_file($oldPath, $newPath);
+
+      $_SESSION['user']['profile-img'] = $imageName;
 }
 
-
-// redirect('/views/profile.php');
+redirect('/views/profile.php');
