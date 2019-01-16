@@ -1,22 +1,39 @@
 <?php
 
+
 require __DIR__.'/../views/header.php';
 
 if (isset($_SESSION['user'])):
+
+    $id = $_SESSION['user']['id'];
+
+    $query = 'SELECT * FROM users WHERE id = :id';
+
+    $statement = $pdo->prepare($query);
+    $statement->bindParam(':id', $id, PDO::PARAM_INT);
+    $statement->execute();
+    if (!$statement)
+    {
+        die(var_dump($pdo->errorInfo()));
+    }
+    $profileInfo = $statement->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($profileInfo as $profileImage) {
+
+    }
 ?>
     <h1 class="profile-user-name"></h1>
     <div class="container">
-    <h1>Edit Profile <?php echo $_SESSION['user']['name'];?></h1>
+    <h1>Edit Profile <?php echo $_SESSION['user']['username'];?></h1>
   	<hr>
-
     	<div class="row">
           <!-- left column -->
-          <div class="col-md-3">
-            <div class="text-center">
-              <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
-              <input type="file" class="form-control">
-            </div>
-          </div>
+          <form class="col-md-3" action="/app/users/settings.php" method="post" enctype="multipart/form-data">
+                  <div class="text-center">
+                      <img src="/app/img/profile_img/<?php echo $profileImage['profile_img'] ?>" width="150px" height="150px" alt="avatar">
+                      <input type="file" name="profile-img" class="form-control">
+                      <input type="submit" name="upload-img" class="btn btn-primary" value="Upload Profile Photo">
+                  </div>
+          </form>
           <!-- edit form column -->
           <div class="col-md-9 personal-info">
             <h3>Update Personal info</h3>
@@ -73,6 +90,6 @@ if (isset($_SESSION['user'])):
      <!-- <a class="panel-close close" data-dismiss="alert">×</a>
      <i class="fa fa-coffee"></i>
      This is an <strong>.alert</strong>. Use this to show important messages to the user. -->
-<?php endif; ?>
+<?php endif;
 
-<?php require __DIR__.'/../views/footer.php'; ?>
+require __DIR__.'/../views/footer.php';
