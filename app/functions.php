@@ -16,3 +16,15 @@ if (!function_exists('redirect')) {
         exit;
     }
 }
+
+/**
+ * [alert description]
+ * @return string [description]
+ */
+function alert()
+{
+	if (isset($_SESSION['success'])) {
+		echo '<div class="alert alert-primary" role="alert">'.$_SESSION['success'].'</div>';
+		unset($_SESSION['success']);
+    }
+}
