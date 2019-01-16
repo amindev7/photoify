@@ -60,7 +60,7 @@ if (isset($_POST['new-password'], $_POST['password-confirm'])) {
 
 // UPLOAD PROFILE IMAGE //
 
-if (isset($_POST['upload-img'], $_FILES['profile-img'])) {
+if (isset($_POST['upload-img'], $_FILES['profile-img']))
 {
   $profileImage = $_FILES['profile-img'] ;
   $id = $_SESSION['user']['id'];
@@ -85,11 +85,10 @@ if (isset($_POST['upload-img'], $_FILES['profile-img'])) {
       	die(var_dump($pdo->errorInfo()));
         }
 
-      $_SESSION['user']['profile-img'] = $imageName;
+      // $_SESSION['user']['profile-img'] = $imageName;
+      redirect('/views/profile.php');
     }
-    redirect('/views/profile.php');
-  }
 
-}
+  }
 
 }
