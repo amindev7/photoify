@@ -38,7 +38,7 @@ if (isset($_FILES['post-img'])){
       if (!$statement) {
           die(var_dump($pdo->errorInfo()));
       }
-       redirect('/../../index.php/');
+       redirect('/../../index.php');
     }
   }
 
