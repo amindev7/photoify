@@ -47,14 +47,13 @@ if (isset($_POST['new-password'], $_POST['password-confirm'])) {
     WHERE id = :id';
 
     $updatePasswordStatement = $pdo->prepare($query);
-
     $updatePasswordStatement->bindParam(':id', $id, PDO::PARAM_INT);
     $updatePasswordStatement->bindParam(':password', $password, PDO::PARAM_STR);
     $updatePasswordStatement->execute();
 
     if (!$updatePasswordStatement) {
         die(var_dump($pdo->errorInfo()));
-    };
+    }
  }
 }
 
@@ -62,7 +61,7 @@ if (isset($_POST['new-password'], $_POST['password-confirm'])) {
 
 if (isset($_POST['upload-img'], $_FILES['profile-img']))
 {
-  $profileImage = $_FILES['profile-img'] ;
+  $profileImage = $_FILES['profile-img'];
   $id = $_SESSION['user']['id'];
 
   if ($profileImage['type'] === 'image/jpeg' || $profileImage['type'] === 'image/png')
@@ -75,17 +74,19 @@ if (isset($_POST['upload-img'], $_FILES['profile-img']))
 
       move_uploaded_file($profileImage['tmp_name'], __DIR__.$imagePath.$imageName);
 
-      $statement = $pdo->prepare('UPDATE users
+      $query = 'UPDATE users
       SET profile_img = :profile_img
-      WHERE id = :id');
+      WHERE id = :id';
+
+      $statement = $pdo->prepare($query);
       $statement->bindParam(':id', $id, PDO::PARAM_INT);
       $statement->bindParam(':profile_img', $imageName, PDO::PARAM_STR);
       $statement->execute();
+
       if (!$statement) {
       	die(var_dump($pdo->errorInfo()));
         }
 
-      // $_SESSION['user']['profile-img'] = $imageName;
       redirect('/views/profile.php');
     }
 
