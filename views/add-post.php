@@ -21,6 +21,7 @@ require __DIR__.'/../views/header.php';
             </div>
             <div class="form-group upload">
                 <button type="submit" name="post-upload" class="btn btn-primary upload-button" value="Upload">
+                <span class="add">Upload</span>
             </div>
         </form>
     </div>
