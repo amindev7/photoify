@@ -13,13 +13,13 @@ Create a instagram clone using Php, CSS & JavaScript.
 **Installation instructions**
 
 - Clone this repository to your computer
-- Start MAMP and Open your browser
+- Start MAMP and open your browser
 - Type in localhost:8888
 
 **This project is written in:**
 
 - PHP
-- HTML
+- JavaScript
 - CSS
 
 **This project is tested on:**
