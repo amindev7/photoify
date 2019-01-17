@@ -32,8 +32,6 @@ if (isset($_SESSION['user'])):
                   <input type="submit" name="upload-img" class="btn btn-primary" value="Upload Profile picture" style=" margin-bottom: 30px;">
               </div>
       </form>
-        <!-- UPDATE PERSONAL INFO  -->
-
       <div class="col-md-9 personal-info">
         <h3>Update Personal info</h3>
         <!-- PROFILE UPDATE FORM -->
