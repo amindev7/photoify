@@ -95,9 +95,13 @@ if (!isset($_SESSION['user'])):
         <div class="post-heading">
          <div class="media m-0">
           <div class="d-flex mr-3">
+
+          <!-- EDIT POST -->
           <?php if (isOwnerOfPost($post['user_id'], $id)): ?>
             <a href="/views/edit-post.php"><i class="far fa-edit"></i></a>
           <?php endif; ?>
+           <!-- EDIT POST END-->
+
           <a href=""><img class="img-fluid rounded-circle" src="/app/img/profile_img/<?php echo $post['profile_img']?>" alt="User"></a>
           </div>
           <div class="media-body">
@@ -110,19 +114,9 @@ if (!isset($_SESSION['user'])):
          <img class="img-fluid" src="/app/img/post_img/<?php echo $post['post_img']; ?>" alt="Image">
          <label><?php echo $post['description']; ?></label>
          <!-- FEED END-->
-
-         <!-- DELETE POST -->
-         <div class="delete-post">
-             <form action="app/posts/delete.php" method="post" enctype="multipart/form-data">
+         <div class="like">
              <button class="btn btn-primary">Like <i class="far fa-thumbs-up"></i> </button>
              <button class="btn btn-primary">180 Likes</button>
-             <?php if (isOwnerOfPost($post['user_id'], $id)): ?>
-            <input type="hidden" name="postId" value="<?php echo $post['post_id'];?>" >
-            <button type="submit" name="delete-post" class="btn btn-primary" >Delete</button>
-            </form>
-            <?php endif; ?>
-            <!-- DELETE POST END-->
-
          </div>
         </div><!--/ post-item -->
        </div><!--/ post -->
