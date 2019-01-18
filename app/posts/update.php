@@ -24,5 +24,6 @@ if (isset($_POST['description-update'], $_POST['post-id']))
   $updateStatement->bindParam(':id', $postId, PDO::PARAM_INT);
   $updateStatement->execute();
 
+  $_SESSION['success'] = 'Your post has been edited!';
   redirect('/../../index.php');
 }
