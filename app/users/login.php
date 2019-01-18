@@ -56,9 +56,10 @@ if (isset($_POST['username'], $_POST['email-reg'], $_POST['password-reg'], $_POS
 
     if (!$statement) {
         die(var_dump($pdo->errorInfo()));
+        $_SESSION['error'] = 'Something went wrong, try again!';
     } else {
-    $_SESSION['success'] = 'Registration successfully completed!';
-    redirect('/');;
+        $_SESSION['success'] = 'Registration successfully completed!';
+    redirect('/');
     exit;
     }
 

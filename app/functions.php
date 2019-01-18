@@ -26,8 +26,12 @@ function alert()
 	if (isset($_SESSION['success'])) {
 		echo '<div class="alert alert-primary" role="alert">'.$_SESSION['success'].'</div>';
 		unset($_SESSION['success']);
-    }
+    }elseif (isset($_SESSION['error'])) {
+		echo '<div class="alert alert-primary" role="alert">'.$_SESSION['error'].'</div>';
+		unset($_SESSION['error']);
+	}
 }
+
 /**
  * [isOwnerOfPost description]
  * @param  int  $post [description]

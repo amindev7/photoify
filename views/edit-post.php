@@ -14,7 +14,6 @@ if (isset($_SESSION['user'])):
         $postId = $post['post_id'];
         $oldDescription = $post['description'];
     }
-
 ?>
 
  <!-- EDIT POST -->

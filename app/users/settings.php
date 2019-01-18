@@ -22,7 +22,6 @@ if (isset($_POST['name'],$_POST['email'])) {
     if (!$updateStatement) {
         die(var_dump($pdo->errorInfo()));
     }
-
     $updateStatement->bindParam(':id', $id, PDO::PARAM_INT);
     $updateStatement->bindParam(':name', $name, PDO::PARAM_STR);
     $updateStatement->bindParam(':email', $email, PDO::PARAM_STR);
@@ -54,7 +53,10 @@ if (isset($_POST['new-password'], $_POST['password-confirm'])) {
     if (!$updatePasswordStatement) {
         die(var_dump($pdo->errorInfo()));
     }
- }
+}else {
+    $_SESSION['error'] = 'Passwords don\'t match!';
+    redirect('/views/profile.php');
+}
 }
 
 // UPLOAD PROFILE IMAGE //
@@ -85,6 +87,7 @@ if (isset($_POST['upload-img'], $_FILES['profile-img']))
 
       if (!$statement) {
       	die(var_dump($pdo->errorInfo()));
+        $_SESSION['error'] = 'Something went wrong, try again!';
         }
 
       redirect('/views/profile.php');
@@ -92,4 +95,7 @@ if (isset($_POST['upload-img'], $_FILES['profile-img']))
 
   }
 
+}else {
+    $_SESSION['error'] = 'Uploaded file is not a valid image, try igen!';
+    redirect('/views/profile.php');
 }

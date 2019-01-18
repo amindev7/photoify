@@ -6,7 +6,7 @@ require __DIR__.'/../autoload.php';
 
 // In this file we store/insert new posts in the database.
 
-if (isset($_FILES['post-img'])){
+if (isset($_POST['post-upload'], $_POST['description'], $_FILES['post-img'])){
 
   $post = $_FILES['post-img'] ;
   $description = $_POST['description'];
@@ -38,8 +38,11 @@ if (isset($_FILES['post-img'])){
       if (!$statement) {
           die(var_dump($pdo->errorInfo()));
       }
-       redirect('/../../index.php');
+      redirect('/../../index.php');
     }
   }
-
+}
+else {
+    $_SESSION['error'] = 'Uploaded file is not a valid image, try igen!';
+    redirect('/views/add-post.php');
 }
