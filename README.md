@@ -26,3 +26,8 @@ Create a instagram clone using Php, CSS & JavaScript.
 
 - Google Chrome
 - Mozilla Firefox
+
+**This project is tested by:**
+
+- Mikael Ravantti
+- Laureta Dzika
