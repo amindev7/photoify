@@ -41,7 +41,7 @@ if (!isset($_SESSION['user'])):
           <div class="sign-up-htm">
             <div class="group">
               <label for="pass" class="label">Email Address</label>
-              <input class="input" type="email" name="email-reg" id="email-r" placeholder="your.email@email.com" required>
+              <input class="input" type="email" name="email-reg" id="email-r" placeholder="your.email@email.com" require>
               <small class="form-text text-muted">Please provide the your email address.</small>
             </div>
             <div class="group">

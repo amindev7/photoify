@@ -19,6 +19,7 @@ if (isset($_POST['email'], $_POST['password'])) {
     $user = $statement->fetch(PDO::FETCH_ASSOC);
 
     if (!$user) {
+        $_SESSION['error'] = 'Something went wrong, try again!';
         redirect('/index.php');
     }
 
@@ -26,9 +27,11 @@ if (isset($_POST['email'], $_POST['password'])) {
         $_SESSION['user'] = $user;
         unset($user['password']);
         redirect('/');
+    }else {
+        $_SESSION['error'] = 'You have enterd a wrong password!';
+        redirect('/');
+        }
     }
-
-   }
 
 //SIGN UP ?
 if (isset($_POST['username'], $_POST['email-reg'], $_POST['password-reg'], $_POST['full-name'])) {
@@ -44,6 +47,10 @@ if (isset($_POST['username'], $_POST['email-reg'], $_POST['password-reg'], $_POS
     VALUES
     (:emailReg, :fullname, :username, :profile_img, :password)";
 
+    if (filter_var($emailReg, FILTER_VALIDATE_EMAIL) === false) {
+        $_SESSION['error'] = 'The email is not valid';
+        redirect('/');
+    }
     $statement = $pdo->prepare($query);
 
     // Bind parameters to statement variables
@@ -62,5 +69,4 @@ if (isset($_POST['username'], $_POST['email-reg'], $_POST['password-reg'], $_POS
     redirect('/');
     exit;
     }
-
 }

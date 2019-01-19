@@ -6,13 +6,17 @@ require __DIR__.'/../autoload.php';
 
 //UPDATE EMAIL AND NAME
 
-if (isset($_POST['name'],$_POST['email'])) {
+if (isset($_POST['name']) || isset($_POST['email'])) {
 
      $name = trim(filter_var($_POST['name'], FILTER_SANITIZE_STRING));
      $email = trim(filter_var($_POST['email'], FILTER_SANITIZE_EMAIL));
 
-     $id = $_SESSION['user']['id'];
+     if (empty($name) || empty($email)) {
+         $_SESSION['error'] = 'Please enter your email and name!';
+         redirect('/views/profile.php');
+     }
 
+    $id = $_SESSION['user']['id'];
     $query = 'UPDATE users
     SET name = :name, email = :email
     WHERE id = :id';
@@ -30,6 +34,8 @@ if (isset($_POST['name'],$_POST['email'])) {
     $_SESSION['user']['name'] = $name;
     $_SESSION['user']['email'] = $email;
 
+    $_SESSION['success'] = 'Your info has been updated!';
+    redirect('/views/profile.php');
 }
 
 //UPDATE PASSWORD
@@ -53,6 +59,8 @@ if (isset($_POST['new-password'], $_POST['password-confirm'])) {
     if (!$updatePasswordStatement) {
         die(var_dump($pdo->errorInfo()));
     }
+    $_SESSION['success'] = 'Your password has benn changed!';
+    redirect('/views/profile.php');
 }else {
     $_SESSION['error'] = 'Passwords don\'t match!';
     redirect('/views/profile.php');
@@ -89,13 +97,7 @@ if (isset($_POST['upload-img'], $_FILES['profile-img']))
       	die(var_dump($pdo->errorInfo()));
         $_SESSION['error'] = 'Something went wrong, try again!';
         }
-
-      redirect('/views/profile.php');
     }
-
   }
-
-}else {
-    $_SESSION['error'] = 'Uploaded file is not a valid image, try igen!';
-    redirect('/views/profile.php');
 }
+redirect('/views/profile.php');
