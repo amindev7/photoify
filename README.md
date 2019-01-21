@@ -21,6 +21,7 @@ Create a instagram clone using Php, CSS & JavaScript.
 - PHP
 - JavaScript
 - CSS
+- HTML
 
 **This project is tested on:**
 
