@@ -32,6 +32,7 @@ function alert()
 	}
 }
 
+
 /**
  * [isOwnerOfPost description]
  * @param  int  $post [description]
@@ -43,6 +44,7 @@ function isOwnerOfPost(int $post, int $user): bool
 {
   return $post === $user;
 }
+
 
 /**
  * [getPostInfo description]
@@ -67,4 +69,29 @@ function getPostInfo(PDO $pdo) :array
     $statement->execute();
 
     return $posts = $statement->fetchAll(PDO::FETCH_ASSOC);
+}
+
+
+/**
+ * [countLikes description]
+ * @param  int $post [description]
+ * @param  PDO $pdo  [description]
+ * @return int       [description]
+ */
+
+function countLikes(int $post, PDO $pdo): int
+{
+	$query = "SELECT * FROM likes
+    WHERE
+    post_id = :post_id";
+
+	$statement = $pdo->prepare($query);
+	if (!$statement)
+	{
+		die(var_dump($pdo->errorInfo()));
+	}
+	$statement->bindParam(':post_id', $post, PDO::PARAM_INT);
+	$statement->execute();
+	$likes = $statement->fetchAll(PDO::FETCH_ASSOC);
+	return count($likes);
 }

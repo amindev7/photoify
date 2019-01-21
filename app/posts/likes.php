@@ -31,15 +31,15 @@ if (isset($_POST['post_id']))
             VALUES
             (:user_id, :post_id)";
 
-            $stmt = $pdo->prepare($query);
-            if (!$stmt)
+            $statement = $pdo->prepare($query);
+            if (!$statement)
             {
                 die(var_dump($pdo->errorInfo()));
             }
-            $stmt->bindParam(':user_id', $user, PDO::PARAM_INT);
-            $stmt->bindParam(':post_id', $postId, PDO::PARAM_INT);
-            $stmt->execute();
-            $likes = $stmt->fetch(PDO::FETCH_ASSOC);
+            $statement->bindParam(':user_id', $user, PDO::PARAM_INT);
+            $statement->bindParam(':post_id', $postId, PDO::PARAM_INT);
+            $statement->execute();
+            $likes = $statement->fetch(PDO::FETCH_ASSOC);
 			redirect('/');
 
 		} else {
@@ -48,15 +48,15 @@ if (isset($_POST['post_id']))
             WHERE
             user_id = :user_id AND post_id = :post_id";
 
-            $stmt = $pdo->prepare($query);
-            if (!$stmt)
+            $statement = $pdo->prepare($query);
+            if (!$statement)
             {
                 die(var_dump($pdo->errorInfo()));
             }
-            $stmt->bindParam(':post_id', $postId, PDO::PARAM_INT);
-            $stmt->bindParam(':user_id', $user, PDO::PARAM_INT);
-            $stmt->execute();
-            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            $statement->bindParam(':post_id', $postId, PDO::PARAM_INT);
+            $statement->bindParam(':user_id', $user, PDO::PARAM_INT);
+            $statement->execute();
+            $dislike = $statement->fetch(PDO::FETCH_ASSOC);
             redirect('/');
 		}
 	}
