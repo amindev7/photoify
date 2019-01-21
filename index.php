@@ -75,7 +75,6 @@ if (!isset($_SESSION['user'])):
 </div><!--/ container -->
 
 <?php else:
-
     $posts = getPostInfo($pdo);
     $posts = array_reverse($posts);
     $id = $_SESSION['user']['id'];
@@ -86,37 +85,40 @@ if (!isset($_SESSION['user'])):
     <div class="new-post">
         <a href="/views/add-post.php" class="badge badge-light"><i class="fa fa-plus"></i> Share a new post</a>
     </div>
-    <?php foreach ($posts as $post):?>
 
         <!-- FEED -->
+    <?php foreach ($posts as $post):?>
      <div class="row">
       <div class="col-lg-6 offset-lg-3">
        <div class="post shadow-lg bg-white">
         <div class="post-heading">
          <div class="media m-0">
           <div class="d-flex mr-3">
-
           <!-- EDIT POST -->
           <?php if (isOwnerOfPost($post['user_id'], $id)): ?>
             <a href="/views/edit-post.php"><i class="far fa-edit"></i></a>
           <?php endif; ?>
            <!-- EDIT POST END-->
-
-          <a href=""><img class="img-fluid rounded-circle" src="/app/img/profile_img/<?php echo $post['profile_img']?>" alt="User"></a>
+          <a href=""><img class="img-fluid rounded-circle" src="/app/img/profile_img/<?= $post['profile_img']?>" alt="User"></a>
           </div>
           <div class="media-body">
-           <p class="m-0"><?php echo $post['username']?></p>
-           <small><span><i class="icon ion-md-time"></i> <?php echo $post['created_at']?></span></small>
+           <p class="m-0"><?= $post['username']?></p>
+           <small><span><i class="icon ion-md-time"></i> <?= $post['created_at']?></span></small>
           </div>
          </div><!--/ media -->
         </div><!--/ post-heading -->
         <div class="post-item">
-         <img class="img-fluid" src="/app/img/post_img/<?php echo $post['post_img']; ?>" alt="Image">
-         <label><?php echo $post['description']; ?></label>
+         <img class="img-fluid" src="/app/img/post_img/<?= $post['post_img']; ?>" alt="Image">
+         <label><?= $post['description']; ?></label>
          <!-- FEED END-->
-         <div class="like">
-             <button class="btn btn-primary">Like <i class="far fa-thumbs-up"></i> </button>
-             <button class="btn btn-primary">180 Likes</button>
+         <div class="likes">
+             <form class="like" method="post" action="/app/posts/likes.php">
+                 <input type="hidden" name="post_id" value="<?= $post["post_id"] ?>">
+                 <button class="btn btn-primary" type="submit" name="likes">Like <i class="far fa-thumbs-up"></i></button>
+                 <?php if (countLikes($post['post_id'], $pdo) > 0): ?>
+                     <p><?= countLikes($post['post_id'], $pdo) ?> likes</p>
+                 <?php endif; ?>
+             </form>
          </div>
         </div><!--/ post-item -->
        </div><!--/ post -->
