@@ -1,7 +1,3 @@
-preset: recommended
-
-risky: false
-
 enabled:
   - long_array_syntax
   - strict
@@ -10,21 +6,3 @@ enabled:
 disabled:
   - align_double_arrow
   - short_array_syntax
-
-finder:
-  exclude:
-    - "tests"
-  name:
-    - "*.php"
-  not-name:
-    - "*Stub.php"
-  contains:
-    - "Foo"
-  not-contains:
-    - "config"
-  path:
-    - "foo/Stuff"
-  not-path:
-    - "libraries"
-  depth:
-    - "< 3"
