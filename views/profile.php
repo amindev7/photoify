@@ -11,17 +11,18 @@ if (isset($_SESSION['user'])):
     $statement = $pdo->prepare($query);
     $statement->bindParam(':id', $id, PDO::PARAM_INT);
     $statement->execute();
-    if (!$statement)
-    {
+    if (!$statement) {
         die(var_dump($pdo->errorInfo()));
     }
     $profileInfo = $statement->fetchAll(PDO::FETCH_ASSOC);
-    foreach ($profileInfo as $info)
+    foreach ($profileInfo as $info) {
+        ;
+    }
 ?>
 
 <h1 class="profile-user-name"></h1>
 <div class="container">
-<h1>Edit Profile <?php echo $info['username'];?></h1>
+<h1>Edit Profile <?php echo $info['username']; ?></h1>
 	<hr>
 	<div class="row">
       <!-- left column -->

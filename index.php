@@ -113,7 +113,7 @@ if (!isset($_SESSION['user'])):
          <!-- FEED END-->
          <div class="likes">
              <form class="like" method="post" action="/app/posts/likes.php">
-                 <input type="hidden" name="post_id" value="<?= $post["post_id"] ?>">
+                 <input type="hidden" name="post_id" value="<?= $post['post_id'] ?>">
                  <button class="btn btn-primary" type="submit" name="likes">Like <i class="far fa-thumbs-up"></i></button>
                  <?php if (countLikes($post['post_id'], $pdo) > 0): ?>
                      <p><?= countLikes($post['post_id'], $pdo) ?> likes</p>
