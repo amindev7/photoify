@@ -7,7 +7,6 @@ require __DIR__.'/../autoload.php';
 // Check if both email and password exists in the POST request.
 
 if (isset($_POST['email'], $_POST['password'])) {
-
     $email = trim(filter_var($_POST['email'], FILTER_SANITIZE_EMAIL));
 
     // Prepare, bind email parameter and execute the database query.
@@ -27,15 +26,14 @@ if (isset($_POST['email'], $_POST['password'])) {
         $_SESSION['user'] = $user;
         unset($user['password']);
         redirect('/');
-    }else {
+    } else {
         $_SESSION['error'] = 'You have enterd a wrong password!';
         redirect('/');
-        }
     }
+}
 
 //SIGN UP ?
 if (isset($_POST['username'], $_POST['email-reg'], $_POST['password-reg'], $_POST['full-name'])) {
-
     $emailReg = trim(filter_var($_POST['email-reg'], FILTER_SANITIZE_EMAIL));
     $fullName = trim(filter_var($_POST['full-name'], FILTER_SANITIZE_STRING));
     $userName = trim(filter_var($_POST['username'], FILTER_SANITIZE_STRING));
@@ -66,7 +64,7 @@ if (isset($_POST['username'], $_POST['email-reg'], $_POST['password-reg'], $_POS
         $_SESSION['error'] = 'Something went wrong, try again!';
     } else {
         $_SESSION['success'] = 'Registration successfully completed!';
-    redirect('/');
-    exit;
+        redirect('/');
+        exit;
     }
 }

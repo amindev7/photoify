@@ -43,7 +43,6 @@ if (isset($_SESSION['user'])):
 </div>
 <!-- DELETE POST END-->
 
-
 <?php endif;
 
 require __DIR__.'/../views/footer.php'; ?>

@@ -9,15 +9,15 @@ require __DIR__.'/../autoload.php';
 // Delete post
 
 if (isset($_POST['postId'])) {
-  $postId = trim(filter_var($_POST['postId']));
-  $deleteStatement = $pdo->prepare('DELETE FROM posts WHERE id = :id');
+    $postId = trim(filter_var($_POST['postId']));
+    $deleteStatement = $pdo->prepare('DELETE FROM posts WHERE id = :id');
 
-  if (!$deleteStatement) {
-    die(var_dump($pdo->errorInfo()));
-  }
+    if (!$deleteStatement) {
+        die(var_dump($pdo->errorInfo()));
+    }
 
-  $deleteStatement->bindParam(':id', $postId, PDO::PARAM_INT);
-  $deleteStatement->execute();
+    $deleteStatement->bindParam(':id', $postId, PDO::PARAM_INT);
+    $deleteStatement->execute();
 
-  redirect('/../../index.php');
+    redirect('/../../index.php');
 }

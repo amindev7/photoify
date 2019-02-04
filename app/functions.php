@@ -23,15 +23,14 @@ if (!function_exists('redirect')) {
  */
 function alert()
 {
-	if (isset($_SESSION['success'])) {
-		echo '<div class="alert alert-primary" role="alert">'.$_SESSION['success'].'</div>';
-		unset($_SESSION['success']);
-    }elseif (isset($_SESSION['error'])) {
-		echo '<div class="alert alert-primary" role="alert">'.$_SESSION['error'].'</div>';
-		unset($_SESSION['error']);
-	}
+    if (isset($_SESSION['success'])) {
+        echo '<div class="alert alert-primary" role="alert">'.$_SESSION['success'].'</div>';
+        unset($_SESSION['success']);
+    } elseif (isset($_SESSION['error'])) {
+        echo '<div class="alert alert-primary" role="alert">'.$_SESSION['error'].'</div>';
+        unset($_SESSION['error']);
+    }
 }
-
 
 /**
  * [isOwnerOfPost description]
@@ -42,9 +41,8 @@ function alert()
 
 function isOwnerOfPost(int $post, int $user): bool
 {
-  return $post === $user;
+    return $post === $user;
 }
-
 
 /**
  * [getPostInfo description]
@@ -62,15 +60,13 @@ function getPostInfo(PDO $pdo) :array
     WHERE u.id = p.user_id';
 
     $statement = $pdo->prepare($query);
-    if (!$statement)
-    {
+    if (!$statement) {
         die(var_dump($pdo->errorInfo()));
     }
     $statement->execute();
 
     return $posts = $statement->fetchAll(PDO::FETCH_ASSOC);
 }
-
 
 /**
  * [countLikes description]
@@ -81,17 +77,16 @@ function getPostInfo(PDO $pdo) :array
 
 function countLikes(int $post, PDO $pdo): int
 {
-	$query = "SELECT * FROM likes
+    $query = "SELECT * FROM likes
     WHERE
     post_id = :post_id";
 
-	$statement = $pdo->prepare($query);
-	if (!$statement)
-	{
-		die(var_dump($pdo->errorInfo()));
-	}
-	$statement->bindParam(':post_id', $post, PDO::PARAM_INT);
-	$statement->execute();
-	$likes = $statement->fetchAll(PDO::FETCH_ASSOC);
-	return count($likes);
+    $statement = $pdo->prepare($query);
+    if (!$statement) {
+        die(var_dump($pdo->errorInfo()));
+    }
+    $statement->bindParam(':post_id', $post, PDO::PARAM_INT);
+    $statement->execute();
+    $likes = $statement->fetchAll(PDO::FETCH_ASSOC);
+    return count($likes);
 }
