@@ -23,7 +23,7 @@ if (isset($_SESSION['user'])):
           <div class="input-group-prepend">
             <span class="input-group-text">New Description</span>
           </div>
-          <input type="hidden" name="post-id" value="<?php echo $postId;?>" >
+          <input type="hidden" name="post-id" value="<?php echo $postId; ?>" >
           <textarea class="form-control" name="description-update" aria-label="With textarea"><?php echo $oldDescription ?></textarea>
         </div>
         <div class="form-group upload">
@@ -37,7 +37,7 @@ if (isset($_SESSION['user'])):
  <!-- DELETE POST -->
 <div class="form-group upload">
     <form action="/../app/posts/delete.php" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="postId" value="<?php echo $post['post_id'];?>" >
+        <input type="hidden" name="postId" value="<?php echo $post['post_id']; ?>" >
         <button type="submit" name="delete-post" class="btn btn-primary upload-button" >Delete</button>
     </form>
 </div>

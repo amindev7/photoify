@@ -18,7 +18,8 @@ if (!function_exists('redirect')) {
 }
 
 /**
- * [alert description]
+ * [alert description].
+ *
  * @return [type] [description]
  */
 function alert()
@@ -33,23 +34,25 @@ function alert()
 }
 
 /**
- * [isOwnerOfPost description]
- * @param  int  $post [description]
- * @param  int  $user [description]
- * @return bool       [description]
+ * [isOwnerOfPost description].
+ *
+ * @param int $post [description]
+ * @param int $user [description]
+ *
+ * @return bool [description]
  */
-
 function isOwnerOfPost(int $post, int $user): bool
 {
     return $post === $user;
 }
 
 /**
- * [getPostInfo description]
- * @param  PDO   $pdo [description]
- * @return array      [description]
+ * [getPostInfo description].
+ *
+ * @param PDO $pdo [description]
+ *
+ * @return array [description]
  */
-
 function getPostInfo(PDO $pdo) :array
 {
     $query = 'SELECT p.id as post_id,
@@ -69,17 +72,18 @@ function getPostInfo(PDO $pdo) :array
 }
 
 /**
- * [countLikes description]
- * @param  int $post [description]
- * @param  PDO $pdo  [description]
- * @return int       [description]
+ * [countLikes description].
+ *
+ * @param int $post [description]
+ * @param PDO $pdo  [description]
+ *
+ * @return int [description]
  */
-
 function countLikes(int $post, PDO $pdo): int
 {
-    $query = "SELECT * FROM likes
+    $query = 'SELECT * FROM likes
     WHERE
-    post_id = :post_id";
+    post_id = :post_id';
 
     $statement = $pdo->prepare($query);
     if (!$statement) {
@@ -88,5 +92,6 @@ function countLikes(int $post, PDO $pdo): int
     $statement->bindParam(':post_id', $post, PDO::PARAM_INT);
     $statement->execute();
     $likes = $statement->fetchAll(PDO::FETCH_ASSOC);
+
     return count($likes);
 }

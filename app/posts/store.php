@@ -7,7 +7,7 @@ require __DIR__.'/../autoload.php';
 // In this file we store/insert new posts in the database.
 
 if (isset($_POST['post-upload'])) {
-    $post = $_FILES['post-img'] ;
+    $post = $_FILES['post-img'];
     $description = $_POST['description'];
 
     if (empty($post)) {
@@ -20,7 +20,7 @@ if (isset($_POST['post-upload'])) {
             $id = $_SESSION['user']['id'];
             $path = '/../img/post_img/';
             $postName = time().'-'.$id.'-'.$post['name'];
-            $createdAt = date("Y-m-d H:i:s");
+            $createdAt = date('Y-m-d H:i:s');
 
             move_uploaded_file($post['tmp_name'], __DIR__.$path.$postName);
 

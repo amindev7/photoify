@@ -8,9 +8,9 @@ if (isset($_POST['post_id'])) {
     if (filter_var($_POST['post_id'], FILTER_VALIDATE_INT)) {
         $user = $_SESSION['user']['id'];
         $postId = $_POST['post_id'];
-        $query = "SELECT * FROM likes
+        $query = 'SELECT * FROM likes
         WHERE
-        user_id = :user_id AND post_id = :post_id";
+        user_id = :user_id AND post_id = :post_id';
 
         $statement = $pdo->prepare($query);
         if (!$statement) {
@@ -23,9 +23,9 @@ if (isset($_POST['post_id'])) {
 
         // NO LIKES //
         if (!$likes) {
-            $query = "INSERT INTO likes(user_id, post_id)
+            $query = 'INSERT INTO likes(user_id, post_id)
             VALUES
-            (:user_id, :post_id)";
+            (:user_id, :post_id)';
 
             $statement = $pdo->prepare($query);
             if (!$statement) {
@@ -37,9 +37,9 @@ if (isset($_POST['post_id'])) {
             $likes = $statement->fetch(PDO::FETCH_ASSOC);
             redirect('/');
         } else {
-            $query = "DELETE FROM likes
+            $query = 'DELETE FROM likes
             WHERE
-            user_id = :user_id AND post_id = :post_id";
+            user_id = :user_id AND post_id = :post_id';
 
             $statement = $pdo->prepare($query);
             if (!$statement) {

@@ -16,13 +16,12 @@ if (isset($_SESSION['user'])):
     }
     $profileInfo = $statement->fetchAll(PDO::FETCH_ASSOC);
     foreach ($profileInfo as $info) {
-        ;
     }
 ?>
 
 <h1 class="profile-user-name"></h1>
 <div class="container">
-<h1>Edit Profile <?php echo $info['username'];?></h1>
+<h1>Edit Profile <?php echo $info['username']; ?></h1>
 	<hr>
 	<div class="row">
       <!-- left column -->
