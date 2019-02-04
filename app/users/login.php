@@ -40,10 +40,10 @@ if (isset($_POST['username'], $_POST['email-reg'], $_POST['password-reg'], $_POS
     $password = trim(password_hash($_POST['password-reg'], PASSWORD_DEFAULT));
     $profileImage = 'default-profile.jpg';
 
-    $query = "INSERT INTO users
+    $query = 'INSERT INTO users
     (email, name, username, profile_img, password)
     VALUES
-    (:emailReg, :fullname, :username, :profile_img, :password)";
+    (:emailReg, :fullname, :username, :profile_img, :password)';
 
     if (filter_var($emailReg, FILTER_VALIDATE_EMAIL) === false) {
         $_SESSION['error'] = 'The email is not valid';
