@@ -1,4 +1,4 @@
-# PHOTOIFY
+# PHOTOIFY [![StyleCI](https://github.styleci.io/repos/161143432/shield?branch=master)](https://github.styleci.io/repos/161143432)
 <img src="https://media.giphy.com/media/jsQFWmfr405KE/giphy.gif" width="800" height="400" />
 
 PHP assignment
